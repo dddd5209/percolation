@@ -36,6 +36,17 @@ char save_n[10];
 char ch_line[2] = "\n";
 char word_sp[2] = " ";
 
+
+int digit(int n){
+	int c=0;
+	while (n>0){
+		n/=10;
+		c++;
+	}
+	return c;
+}
+
+
 void set_lattice(){
 	for (int i=0;i<size;i++){
 		for (int j=0;j<size;j++){
@@ -128,12 +139,3 @@ void file_write(){
 	writeFile.close();
 }
 
-
-int digit(int n){
-	int c=0;
-	while (n>0){
-		n/=10;
-		c++;
-	}
-	return c;
-}
