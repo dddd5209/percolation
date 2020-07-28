@@ -7,14 +7,16 @@
 
 using namespace std;
 
-int check_top;
-int p_c;
 #ifndef L
 #define L 10
 #endif
 
 #ifndef EMPTY
 #define EMPTY (-N-1)
+#endif
+
+#ifndef LOOP
+#define LOOP 100
 #endif
 
 #ifndef N
@@ -26,6 +28,7 @@ int nn[N][4];
 int order[N];
 char file_name[30];
 char save_n[10];
+int loop_n=0;
 
 random_device rd;
 mt19937 gen(rd());
@@ -76,9 +79,10 @@ void percolate(){
   int s1,s2;
   int r1,r2;
   int big = 0;
+  cout<<loop_n<<endl;
 
   ofstream writeFile;
-  sprintf(file_name,"data/data_L_%d.txt",L);
+  sprintf(file_name,"data_L_%d/data_L_%d_%d.txt",L,L,loop_n);
 	writeFile.open(file_name);
 
   for (i = 0; i < N; i++) ptr[i]=EMPTY;
@@ -108,6 +112,6 @@ void percolate(){
     }
     writeFile.write("\n",1);
 
-    cout<<i+1<<" "<<big<<endl;
+//    cout<<i+1<<" "<<big<<endl;
   }
 }

@@ -2,9 +2,13 @@
 
 int main(int argc, char const *argv[]) {
 
-  boundaries();
-  permutation();
-  percolate();
+  for (loop_n=0;loop_n<LOOP;loop_n++){
+
+    boundaries();
+    permutation();
+    percolate();
+
+  }
 
 return 0;
 }
