@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <queue>
 #include <random>
+#include <fstream>
 
 
 using namespace std;
@@ -9,7 +10,7 @@ using namespace std;
 int check_top;
 int p_c;
 #ifndef L
-#define L 1000
+#define L 10
 #endif
 
 #ifndef EMPTY
@@ -23,6 +24,8 @@ int p_c;
 int ptr[N];
 int nn[N][4];
 int order[N];
+char file_name[30];
+char save_n[10];
 
 random_device rd;
 mt19937 gen(rd());
@@ -59,11 +62,25 @@ void permutation(){
   }
 }
 
+int digit(int n){
+	int c=0;
+	while (n>0){
+		n/=10;
+		c++;
+	}
+	return c;
+}
+
 void percolate(){
   int i,j;
   int s1,s2;
   int r1,r2;
   int big = 0;
+
+  ofstream writeFile;
+  sprintf(file_name,"data/data_L_%d.txt",L);
+	writeFile.open(file_name);
+
   for (i = 0; i < N; i++) ptr[i]=EMPTY;
   for (i = 0; i < N; i++) {
     r1 = s1 = order[i];
@@ -73,6 +90,9 @@ void percolate(){
       if(ptr[s2]!=EMPTY){
         r2=findroot(s2);
         if(r2!=r1){
+          sprintf(save_n,"%d",-ptr[r2]);
+          writeFile.write(save_n,digit(-ptr[r2]));
+          writeFile.write(" ",1);
           if(ptr[r1]>ptr[r2]){
             ptr[r2]+=ptr[r1];
             ptr[r1] = r2;
@@ -86,6 +106,8 @@ void percolate(){
         }
       }
     }
+    writeFile.write("\n",1);
+
     cout<<i+1<<" "<<big<<endl;
   }
 }
